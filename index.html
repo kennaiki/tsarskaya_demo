@@ -112,6 +112,18 @@ main section,main .board{margin-bottom:84px}
 [data-bstyle="bar"] .hour{border-radius:0;border-right:var(--bw) solid var(--line);padding:18px 0}
 [data-bstyle="bar"] .hour.free{background:var(--accent);color:var(--on-accent)}
 [data-bstyle="bar"] .hour.free:hover{background:var(--ink);color:var(--bg);transform:none}
+/* телефон: лента часов и вкладки дней обрезались по краю («13:0», «Послезавтр»), 17.11.2026.
+   Часы — сеткой по 4 в ряд без прокрутки, вкладки — на всю ширину */
+@media(max-width:600px){
+  .board-top{display:grid;grid-template-columns:minmax(0,1fr)}
+  .tabs{width:100%}
+  .tabs button{flex:1 1 0;min-width:0;padding:8px 2px;font-size:13px;letter-spacing:0}
+  .hours{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;cursor:auto;padding-bottom:0}
+  .hours > .hour{min-width:0;max-width:none;margin:0;font-size:15px;letter-spacing:0;padding:13px 0}
+  .hours > p,.hours > .wait:only-child{grid-column:1/-1}
+  [data-bstyle="bar"] .hours{overflow:hidden}
+  [data-bstyle="bar"] .hour{border-bottom:var(--bw) solid var(--line)}
+}
 
 /* цены */
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
