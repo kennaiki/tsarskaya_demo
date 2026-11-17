@@ -180,6 +180,68 @@ input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:24px}
   #mf > .exbox,#mf > label.f:has(#mn),#mf > label.f:has(#mp){flex-basis:100%}
   #mf > button{flex:1 1 100%}
 }
+
+/* ===== 17.11.2026: статусы, итоговая цена, действия иконками (ПК — справа внизу, телефон — смахиванием) ===== */
+.lhead{margin-top:0}
+#mcard{margin-top:14px}
+.savebar{position:static}
+.bk .badge.st-new{background:#eceff2;color:#5f6b75}
+.bk .badge.st-ok{background:#e3edfd;color:#2659b8}
+.bk .badge.st-done{background:#e1f3e6;color:#237a3d}
+.bk .badge.st-no{background:#fbe5e3;color:#b23a2e}
+.bk .price{background:#e1f3e6;color:#237a3d}
+.bkw{position:relative;margin-bottom:8px;border-radius:16px;overflow:hidden;background:var(--soft)}
+.bkw:last-child{margin-bottom:0}
+.bkw .bk,.bkw .bk:first-child{position:relative;z-index:1;margin:0;grid-template-columns:72px minmax(0,1fr);padding:14px 16px 64px;background:var(--soft);transition:transform .22s ease}
+.bk .mid{min-width:0}
+.bk .pline{margin-top:6px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.bk .price{margin:0}
+.bk .pnote{color:var(--muted);font-size:13px}
+.bk a.tel{display:inline-block;margin-top:6px}
+.sw{position:absolute;right:12px;bottom:12px;z-index:2;display:flex;gap:6px}
+.ib{position:relative;width:40px;height:40px;min-height:0;padding:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.ib svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ib span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.card .ib.i-ok{background:#e3edfd;color:#2659b8}.card .ib.i-ok:hover{background:#d2e2fb}
+.card .ib.i-done{background:#e1f3e6;color:#237a3d}.card .ib.i-done:hover{background:#cdebd6}
+.card .ib.i-undo{background:var(--deep);color:var(--muted)}
+.card .ib.i-price{background:#fbf1dc;color:#8a6414}.card .ib.i-price:hover{background:#f6e6c2}
+.card .ib.i-call{background:var(--deep);color:var(--ink)}
+.card .ib.i-no{background:#fbe5e3;color:#b23a2e}.card .ib.i-no:hover{background:#f6d5d1}
+.pedit{margin-top:10px;padding:12px;border-radius:14px;background:var(--card);display:grid;gap:8px;max-width:420px}
+.pedit .msg,.sheet .msg{margin:0}
+.pbtns{display:flex;flex-wrap:wrap;gap:8px}
+.shade{position:fixed;inset:0;z-index:50;background:rgba(15,20,25,.45)}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;background:var(--card);border-radius:22px 22px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom));display:grid;gap:10px;animation:up .2s ease}
+.sheet input{font-size:24px;font-weight:600;min-height:56px}
+.sheet .pbtns button{flex:1 1 0;min-height:50px}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.swtip{color:var(--muted);font-size:13px;margin:0 0 8px}
+@keyframes peek{0%,100%{transform:none}35%,60%{transform:translateX(-120px)}}
+.bk.hint{animation:peek 1.8s ease .5s 1}
+@media (max-width:760px){
+  /* телефон: иконки под записью, запись уезжает влево (как в Telegram) */
+  .bkw .bk,.bkw .bk:first-child{padding:12px;grid-template-columns:56px minmax(0,1fr);border-radius:0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .bkw:not(.open) .sw{visibility:hidden}
+  .bkw.drag .sw,.bkw.open .sw{visibility:visible}
+  .sw{top:0;right:0;bottom:0;z-index:0;gap:0}
+  .card .ib{width:58px;height:auto;border-radius:0;font-size:11px;font-weight:500;color:#fff}
+  .ib span{position:static;width:auto;height:auto;clip:auto}
+  .card .ib.i-ok,.card .ib.i-ok:hover{background:#3b78e0;color:#fff}
+  .card .ib.i-done,.card .ib.i-done:hover{background:#2f9e57;color:#fff}
+  .card .ib.i-undo,.card .ib.i-undo:hover{background:#7b8794;color:#fff}
+  .card .ib.i-price,.card .ib.i-price:hover{background:#d9961a;color:#fff}
+  .card .ib.i-call,.card .ib.i-call:hover{background:#5d7385;color:#fff}
+  .card .ib.i-no,.card .ib.i-no:hover{background:#d64541;color:#fff}
+  /* шапка в одну строку: название заведения, «На сайт» и «Выйти» */
+  .top{flex-wrap:nowrap}
+  .top h1{display:none}
+  .brand small{font-size:16px;font-weight:600;color:var(--ink);line-height:1.2}
+  .top .row{flex-wrap:nowrap!important;gap:6px!important}
+  .top .row button,.top .row a.btnlink{padding:6px 12px;min-height:38px;font-size:14px}
+  .lctl{width:100%;justify-content:flex-start}
+  #addb{margin-left:auto}
+}
 </style>
 </head>
 <body>
@@ -201,14 +263,15 @@ input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:24px}
   <div class="tabs"><button type="button" id="tb" class="on">Записи</button><button type="button" id="tc">Настройки</button></div>
 
   <div id="pb">
-    <div class="card">
+    <!-- сначала записи; ручная запись — по кнопке «+ Записать» (17.11.2026) -->
+    <div class="lhead"><h2>Ближайшие записи</h2>
+      <div class="lctl"><span class="upd" id="upd" aria-live="polite"></span><select id="fm" aria-label="Пост"></select><button id="rf" type="button" class="refresh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>Обновить</button><button id="addb" type="button" class="primary" aria-expanded="false" aria-controls="mcard">+ Записать</button></div></div>
+    <div class="card" id="mcard" hidden>
       <h3>Добавить запись вручную</h3>
       <p class="hint">Для звонков и тех, кто пришёл сам. Время сразу станет занятым на сайте. Так же можно закрыть час на мойке.</p>
       <form id="mf" class="row" style="margin-top:8px"></form>
       <p class="msg" id="mmsg"></p>
     </div>
-    <div class="lhead"><h2>Ближайшие записи</h2>
-      <div class="lctl"><span class="upd" id="upd" aria-live="polite"></span><select id="fm" aria-label="Пост"></select><button id="rf" type="button" class="refresh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>Обновить</button></div></div>
     <p class="msg err" id="berr"></p>
     <div id="books"></div>
   </div>
@@ -263,6 +326,11 @@ function tab(t){
   $('tb').className = t === 'b' ? 'on' : ''; $('tc').className = t === 'c' ? 'on' : '';
 }
 $('tb').onclick = function(){ tab('b'); }; $('tc').onclick = function(){ tab('c'); };
+$('addb').onclick = function(){
+  var c = $('mcard'); c.hidden = !c.hidden;
+  this.setAttribute('aria-expanded', String(!c.hidden)); this.textContent = c.hidden ? '+ Записать' : 'Скрыть форму';
+  if (!c.hidden) c.scrollIntoView({block: 'nearest'});
+};
 
 function init(){
   fetch(W + '/config', {cache: 'no-cache'}).then(function(r){ return r.json(); }).then(function(c){
@@ -289,67 +357,195 @@ function loadBooks(){
     .catch(function(e){ $('berr').textContent = e.message; })
     .then(function(){ $('rf').classList.remove('busy'); $('rf').disabled = false; });
 }
-// итоговая цена записи: мойка по кузову + допуслуги (по текущему прайсу)
 function rub(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽'; }
-function bookPrice(b){
-  function pr(name){ var s = CFG.services.filter(function(x){ return x.name === name; })[0], p = s && s.prices[b.level]; return p ? p.price : null; }
-  var base = pr(b.service); if (base == null) return null;
-  return (b.extras || []).reduce(function(t, n){ return t + (pr(n) || 0); }, base);
+// цена по прайсу (услуга по классу авто + допуслуги): {sum, from, unknown}; итоговая цена после расчёта хранится в записи (b.final)
+function priceInfo(b){
+  var r = {sum: 0, from: false, unknown: false};
+  [b.service].concat(b.extras || []).forEach(function(name){
+    var s = CFG.services.filter(function(x){ return x.name === name; })[0], p = s && (s.prices[b.level] || s.prices[Object.keys(s.prices)[0]]);
+    if (!p || p.price == null){ r.unknown = true; return; }
+    r.sum += p.price; if (p.from) r.from = true;
+  });
+  return r;
 }
+function listText(b){
+  var p = priceInfo(b);
+  if (p.unknown && !p.sum) return 'по прайсу: цена уточняется';
+  return 'по прайсу: ' + (p.from || p.unknown ? 'от ' : '') + rub(p.sum);
+}
+// статусы: new — не подтверждена (серый), ok — подтверждена (голубой), done — выполнена (зелёный); отменённая запись удаляется
+var ST = {'new': ['st-new', 'Не подтверждена'], ok: ['st-ok', 'Подтверждена'], done: ['st-done', 'Выполнена']};
+var ICO = {
+  ok: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  done: '<path d="M2 12.5l4.5 4.5L16 7.5"/><path d="M11 15l2 2 9.5-9.5"/>',
+  undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  price: '<path d="M8 21V3h6a4.5 4.5 0 0 1 0 9H6M6 16h9"/>',
+  call: '<path d="M6 3h4l2 5-2.5 1.5a11 11 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-3z"/>',
+  no: '<path d="M6 6l12 12M18 6 6 18"/>'
+};
+var narrow = function(){ return window.matchMedia('(max-width:760px)').matches; };
+var OPEN = null, EDIT = false, PENDING = false; // открытая свайпом запись и открытый ввод цены: обновление списка ждёт, пока их закроют
+function uiBusy(){ return !!OPEN || EDIT; }
+function flush(){ if (PENDING && !uiBusy()){ PENDING = false; renderBooks(); } }
+function setOpen(w, on){
+  var bk = w.querySelector('.bk');
+  if (on && OPEN && OPEN !== w) setOpen(OPEN, false);
+  bk.style.transform = on ? 'translateX(-' + w.querySelector('.sw').offsetWidth + 'px)' : '';
+  w.classList.toggle('open', on); OPEN = on ? w : (OPEN === w ? null : OPEN);
+  if (!on) flush();
+}
+// смахивание влево (как в Telegram): палец или мышь, вертикальная прокрутка не мешает
+function swipe(w){
+  var bk = w.querySelector('.bk'), sw = w.querySelector('.sw'), x0 = null, y0 = 0, dx = 0, base = 0, drag = null, moved = false;
+  bk.addEventListener('pointerdown', function(e){
+    if (!narrow() || e.button > 0) return;
+    x0 = e.clientX; y0 = e.clientY; drag = null; moved = false; base = w.classList.contains('open') ? -sw.offsetWidth : 0; dx = base;
+  });
+  bk.addEventListener('pointermove', function(e){
+    if (x0 == null) return;
+    var ddx = e.clientX - x0, ddy = e.clientY - y0;
+    if (drag === null){ if (Math.abs(ddx) < 8 && Math.abs(ddy) < 8) return; drag = Math.abs(ddx) > Math.abs(ddy); if (drag){ try { bk.setPointerCapture(e.pointerId); } catch (er) {} bk.style.transition = 'none'; w.classList.add('drag'); } }
+    if (!drag) return;
+    moved = true; dx = Math.min(0, Math.max(-sw.offsetWidth - 24, base + ddx)); bk.style.transform = 'translateX(' + dx + 'px)';
+  });
+  function end(){
+    if (x0 == null) return; x0 = null; bk.style.transition = '';
+    if (drag){ setOpen(w, dx < -sw.offsetWidth / 3); setTimeout(function(){ w.classList.remove('drag'); }, 250); }
+  }
+  bk.addEventListener('pointerup', end); bk.addEventListener('pointercancel', end);
+  // тап по открытой записи закрывает её; после смахивания клик не срабатывает
+  bk.addEventListener('click', function(e){
+    if (moved){ e.preventDefault(); e.stopPropagation(); moved = false; return; }
+    if (w.classList.contains('open') && !e.target.closest('a')){ e.preventDefault(); setOpen(w, false); }
+  }, true);
+}
+document.addEventListener('pointerdown', function(e){ if (OPEN && !OPEN.contains(e.target)) setOpen(OPEN, false); });
+
+// короткие подписи под иконками на телефоне; полное название — в подсказке и для программ чтения с экрана
+var SHORT = {ok: 'Принять', done: 'Готово', undo: 'Вернуть', price: 'Цена', call: 'Звонок', no: 'Отмена'};
+function ib(kind, cls, label, fn){
+  var b = el('button', 'ib ' + cls); b.type = 'button'; b.title = label; b.setAttribute('aria-label', label);
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICO[kind] + '</svg>'; b.appendChild(el('span', '', SHORT[kind]));
+  b.onclick = function(e){ e.stopPropagation(); fn(); }; return b;
+}
+function plural(n, a, b, c){ return n % 10 === 1 && n % 100 !== 11 ? a : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? b : c; }
 function renderBooks(){
+  if (uiBusy()){ PENDING = true; return; }
   var box = $('books'); box.innerHTML = '';
-  var nw = BOOKS.filter(function(b){ return b.status !== 'ok'; }).length;
+  var nw = BOOKS.filter(function(b){ return b.status !== 'ok' && b.status !== 'done'; }).length;
   document.title = (nw ? '(' + nw + ') ' : '') + 'Панель администратора';
-  var f = $('fm').value, last = '', card = null, n = 0, dayHead = null, daySum = 0, dayCnt = 0;
-  var today = new Date(); today.setDate(today.getDate() - 1);
-  function closeDay(){ if (dayHead) dayHead.lastChild.textContent = dayCnt + ' ' + (dayCnt % 10 === 1 && dayCnt % 100 !== 11 ? 'запись' : dayCnt % 10 >= 2 && dayCnt % 10 <= 4 && (dayCnt % 100 < 10 || dayCnt % 100 >= 20) ? 'записи' : 'записей') + ' · ' + rub(daySum); }
+  var f = $('fm').value, last = '', card = null, n = 0, dayHead = null, cnt = 0, fin = 0, sum = 0;
+  // итог дня — только по уточнённым ценам; пока уточнены не все, итог помечен как не окончательный
+  function closeDay(){
+    if (!dayHead) return;
+    var t = cnt + ' ' + plural(cnt, 'запись', 'записи', 'записей');
+    if (!fin) t += ' · цены не уточнены';
+    else if (fin < cnt) t += ' · ' + rub(sum) + ' — уточнено ' + fin + ' из ' + cnt + ', итог не окончательный';
+    else t += ' · итого ' + rub(sum);
+    dayHead.lastChild.textContent = t;
+  }
   BOOKS.filter(function(b){ return !f || b.master === f; }).forEach(function(b){
     n++;
     if (b.date !== last){
-      closeDay(); daySum = 0; dayCnt = 0;
+      closeDay(); cnt = 0; fin = 0; sum = 0;
       last = b.date;
       var d = new Date(b.date + 'T12:00:00');
       dayHead = el('div', 'days'); dayHead.appendChild(el('span', '', d.toLocaleDateString('ru-RU', {weekday: 'long', day: 'numeric', month: 'long'}))); dayHead.appendChild(el('span', 'dsum'));
       box.appendChild(dayHead);
       card = el('div', 'card'); box.appendChild(card);
     }
-    var price = b.kind === 'request' ? null : bookPrice(b); dayCnt++; if (price != null) daySum += price;
-    var row = el('div', 'bk');
+    cnt++; if (b.final != null){ fin++; sum += b.final; }
+    var st = ST[b.status] || ST['new'];
+    var w = el('div', 'bkw'), row = el('div', 'bk');
     row.appendChild(el('div', 't', b.time || 'Заявка'));
-    var mid = el('div');
+    var mid = el('div', 'mid');
     var l1 = el('div'); l1.appendChild(el('strong', '', b.name || 'Без имени'));
-    var bd = el('span', 'badge ' + (b.status === 'ok' ? 'okb' : 'new'), b.status === 'ok' ? 'Подтверждена' : 'Новая'); l1.appendChild(bd);
+    l1.appendChild(el('span', 'badge ' + st[0], st[1]));
     if (b.manual) l1.appendChild(el('span', 'badge', 'вручную'));
     if (b.kind === 'request') l1.appendChild(el('span', 'badge', 'на расчёт'));
-    if (price != null) l1.appendChild(el('span', 'price', rub(price)));
     mid.appendChild(l1);
-    // кузов, мойка и допуслуги; пост показываем, только если их несколько
-    var l2 = b.kind === 'request'
+    // класс авто, услуга и допуслуги; пост показываем, только если их несколько
+    mid.appendChild(b.kind === 'request'
       ? el('small', '', [b.service, b.car].filter(Boolean).join(', ') + (b.comment ? ' — ' + b.comment : ''))
-      : el('small', '', [CFG.masters.length > 1 ? masterName(b.master) : '', CFG.levels.length > 1 ? b.level : '', b.service].filter(Boolean).join(', ') + (b.extras && b.extras.length ? ' + ' + b.extras.join(', ') : ''));
-    mid.appendChild(l2);
-    if (b.phone && b.phone !== '—'){
-      mid.appendChild(document.createElement('br'));
-      var a = el('a', '', b.phone); a.href = 'tel:' + b.phone.replace(/[^\d+]/g, ''); mid.appendChild(a);
-    }
+      : el('small', '', [CFG.masters.length > 1 ? masterName(b.master) : '', CFG.levels.length > 1 ? b.level : '', b.service].filter(Boolean).join(', ') + (b.extras && b.extras.length ? ' + ' + b.extras.join(', ') : '')));
+    var pl = el('div', 'pline');
+    if (b.final != null){ pl.appendChild(el('span', 'price', rub(b.final))); pl.appendChild(el('span', 'pnote', 'уточнено · ' + listText(b))); }
+    else pl.appendChild(el('span', 'pnote', listText(b)));
+    mid.appendChild(pl);
+    var tel = b.phone && b.phone !== '—' ? 'tel:' + b.phone.replace(/[^\d+]/g, '') : '';
+    if (tel){ var a = el('a', 'tel', b.phone); a.href = tel; mid.appendChild(a); }
     row.appendChild(mid);
-    var ac = el('div', 'acts');
-    if (b.status !== 'ok'){ var ok = el('button', 'primary', 'Подтвердить'); ok.onclick = function(){ act(b.id, 'ok'); }; ac.appendChild(ok); }
-    var no = el('button', 'danger', 'Отменить');
-    no.onclick = function(){ if (confirm('Отменить запись «' + (b.name || '') + '» на ' + b.date + ' ' + (b.time || '') + '? Время освободится на сайте.')) act(b.id, 'no'); };
-    ac.appendChild(no); row.appendChild(ac); card.appendChild(row);
+    // действия: только подходящие к статусу; красная отмена — последней
+    var sw = el('div', 'sw');
+    if (b.status !== 'ok' && b.status !== 'done') sw.appendChild(ib('ok', 'i-ok', 'Подтвердить', function(){ act(b.id, 'ok'); }));
+    if (b.status !== 'done') sw.appendChild(ib('done', 'i-done', 'Выполнена', function(){ act(b.id, 'done'); }));
+    else sw.appendChild(ib('undo', 'i-undo', 'Вернуть в подтверждённые', function(){ act(b.id, 'undo'); }));
+    sw.appendChild(ib('price', 'i-price', 'Цена', function(){ openPrice(b, w); }));
+    if (tel) sw.appendChild(ib('call', 'i-call', 'Позвонить', function(){ location.href = tel; }));
+    if (b.status !== 'done') sw.appendChild(ib('no', 'i-no', 'Отменить', function(){
+      if (confirm('Отменить запись «' + (b.name || '') + '» на ' + b.date + ' ' + (b.time || '') + '? Время освободится на сайте.')) act(b.id, 'no'); }));
+    w.appendChild(sw); w.appendChild(row); card.appendChild(w); swipe(w);
   });
   closeDay();
   if (!n) box.appendChild(el('p', 'empty', 'Записей пока нет.'));
+  swipeHint();
 }
-function act(id, a){ api('/admin/action', {id: id, act: a}).then(loadBooks).catch(function(e){ $('berr').textContent = e.message; }); }
+function act(id, a, extra){
+  if (OPEN) setOpen(OPEN, false);
+  var body = {id: id, act: a}; for (var k in extra || {}) body[k] = extra[k];
+  return api('/admin/action', body).then(loadBooks).catch(function(e){ $('berr').textContent = e.message; throw e; });
+}
+// итоговая цена: на телефоне — панель снизу с цифровой клавиатурой, на ПК — поле в карточке
+function openPrice(b, w){
+  if (EDIT) return;
+  if (OPEN) setOpen(OPEN, false);
+  EDIT = true;
+  var mob = narrow(), host = el('div', mob ? 'sheet' : 'pedit'), shade = null;
+  if (mob){ shade = el('div', 'shade'); host.setAttribute('role', 'dialog'); host.setAttribute('aria-modal', 'true'); host.setAttribute('aria-label', 'Итоговая цена');
+    host.appendChild(el('h3', '', 'Итоговая цена')); host.appendChild(el('p', 'hint', (b.name || 'Без имени') + ' · ' + (b.service || ''))); }
+  host.appendChild(el('p', 'hint', listText(b).replace('по прайсу', 'По прайсу')));
+  var lb = el('label', 'f', 'Итоговая цена, ₽'), inp = el('input'); inp.inputMode = 'numeric'; inp.autocomplete = 'off'; inp.placeholder = 'например, 4200';
+  inp.value = b.final != null ? String(b.final) : ''; lb.appendChild(inp); host.appendChild(lb);
+  var msg = el('p', 'msg err'); host.appendChild(msg);
+  var r = el('div', 'pbtns'), sv = el('button', 'primary', 'Сохранить'), cl = el('button', '', 'Отмена'); sv.type = cl.type = 'button';
+  r.appendChild(sv);
+  if (b.final != null){ var er = el('button', 'danger', 'Стереть'); er.type = 'button'; er.onclick = function(){ save(null); }; r.appendChild(er); }
+  r.appendChild(cl); host.appendChild(r);
+  function close(){ EDIT = false; if (shade) shade.remove(); host.remove(); flush(); }
+  function save(v){
+    sv.disabled = true;
+    act(b.id, 'price', {price: v}).then(close).catch(function(e){ msg.textContent = e.message; sv.disabled = false; });
+  }
+  sv.onclick = function(){
+    var d = inp.value.replace(/\s/g, '');
+    if (d === ''){ save(null); return; }
+    if (!/^\d{1,8}$/.test(d)){ msg.textContent = 'Только цифры, целые рубли'; inp.focus(); return; }
+    save(+d);
+  };
+  cl.onclick = close; if (shade) shade.onclick = close;
+  inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') sv.click(); if (e.key === 'Escape') close(); });
+  if (mob){ document.body.appendChild(shade); document.body.appendChild(host); }
+  else w.querySelector('.mid').appendChild(host);
+  inp.focus();
+}
+// один раз на телефоне показываем, что запись смахивается влево
+function swipeHint(){
+  if (!narrow()) return;
+  var seen = false; try { seen = localStorage.getItem('swh') === '1'; } catch (e) {}
+  var w = document.querySelector('#books .bkw'); if (seen || !w) return;
+  try { localStorage.setItem('swh', '1'); } catch (e) {}
+  var tip = el('p', 'swtip', 'Смахните запись влево — там действия'); w.parentNode.insertBefore(tip, w);
+  w.classList.add('drag'); w.querySelector('.bk').classList.add('hint');
+  setTimeout(function(){ w.classList.remove('drag'); }, 2600);
+  setTimeout(function(){ tip.remove(); }, 6000);
+}
 
 function renderManual(){
   var f = $('mf'); f.innerHTML = '';
   // сайты только с заявками на расчёт: записывать по времени нечего, ручная запись не нужна
   var hasBook = CFG.services.some(function(s){ return !s.request && Object.keys(s.prices).some(function(l){ return s.prices[l] && s.prices[l].minutes; }); });
-  f.parentNode.style.display = hasBook ? '' : 'none';
-  if (!hasBook) return;
+  $('addb').style.display = hasBook ? '' : 'none';
+  if (!hasBook){ $('mcard').hidden = true; return; }
   function pl(p){ return p.price == null ? 'цена уточняется' : (p.from ? 'от ' : '') + p.price + ' ₽'; }
   function sel(label, id, opts){ var l = el('label', 'f', label), s = el('select'); s.id = id;
     opts.forEach(function(o){ var x = el('option', '', o[1]); x.value = o[0]; s.appendChild(x); }); l.appendChild(s); f.appendChild(l); return l; }
