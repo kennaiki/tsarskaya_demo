@@ -41,6 +41,8 @@ h2{font-size:clamp(28px,4vw,42px)}
 
 /* плашка тестовой версии */
 .demo{background:var(--soft);font-size:14px;text-align:center;padding:8px 20px;color:var(--mute)}
+/* на телефоне — одна строка, чтобы первый экран достался заголовку и кнопке записи */
+@media(max-width:600px){.demo{font-size:12.5px;padding:6px 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.demo-x{display:none}}
 
 /* шапка */
 header{position:sticky;top:0;z-index:40;background:var(--bg)}
@@ -67,7 +69,8 @@ main section,main .board{margin-bottom:84px}
 .hero .pic{overflow:hidden;background:var(--soft);border-radius:var(--rl)}
 .hero.v-split{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
 .hero.v-split .pic{aspect-ratio:4/3.4}
-@media(max-width:820px){.hero.v-split{grid-template-columns:1fr;padding-top:12px;gap:24px}.hero.v-split .pic{order:-1;aspect-ratio:16/11}}
+/* на телефоне сначала заголовок и кнопка записи, фото под ними */
+@media(max-width:820px){.hero.v-split{grid-template-columns:1fr;padding-top:12px;gap:24px}.hero.v-split .pic{aspect-ratio:16/11}}
 .hero.v-full{position:relative;display:grid;align-items:end;min-height:min(78vh,640px);padding:0;border-radius:var(--rl);overflow:hidden;color:var(--on-dark);margin-top:8px}
 .hero.v-full{margin-bottom:56px}
 .hero.v-full .pic{position:absolute;inset:0;border-radius:0}
@@ -119,7 +122,8 @@ main section,main .board{margin-bottom:84px}
   .tabs{width:100%}
   .tabs button{flex:1 1 0;min-width:0;padding:8px 2px;font-size:13px;letter-spacing:0}
   .hours{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;cursor:auto;padding-bottom:0}
-  .hours > .hour{min-width:0;max-width:none;margin:0;font-size:15px;letter-spacing:0;padding:13px 0}
+  /* :first-child/:last-child — иначе margin:auto от широкой ленты сжимает первый и последний час в кружок (17.11.2026) */
+  .hours > .hour,.hours > .hour:first-child,.hours > .hour:last-child{min-width:0;max-width:none;margin:0;font-size:15px;letter-spacing:0;padding:13px 0}
   .hours > p,.hours > .wait:only-child{grid-column:1/-1}
   [data-bstyle="bar"] .hours{overflow:hidden}
   [data-bstyle="bar"] .hour{border-bottom:var(--bw) solid var(--line)}
@@ -186,7 +190,30 @@ main section,main .board{margin-bottom:84px}
 @media(max-width:700px){.strip,.strip.three{grid-template-columns:1fr;grid-template-rows:none}.strip figure{aspect-ratio:16/10}}
 
 /* контакты */
+.hero .pic.art{display:grid;place-items:center;background:var(--soft)}
+.hero .pic.art svg{width:100%;height:100%;display:block}
+/* свой блок сайта (sites/_art.mjs → sig): карточки с векторной картинкой; цвета берутся из темы */
+.sg-g{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sg-g.three{grid-template-columns:repeat(3,1fr)}
+.sg-g.one{grid-template-columns:1fr}
+.sg-c{margin:0;background:var(--surface);border:var(--bw) solid var(--line);border-radius:var(--r);padding:24px}
+.sg-c.on{background:var(--soft);border-color:var(--accent-soft)}
+.sg-c svg{display:block;width:100%;height:auto;margin-bottom:16px}
+.sg-c figcaption{color:var(--mute)}
+.sg-c figcaption b{display:block;font:var(--dw) 22px/1.2 var(--display);letter-spacing:var(--dtrack);text-transform:var(--dcase);color:var(--ink);margin-bottom:4px}
+.sg-cta{margin-top:22px;text-align:center}
+@media(max-width:800px){.sg-g,.sg-g.three{grid-template-columns:1fr}.sg-c{padding:18px}}
+.a-acc{fill:var(--accent)}.a-ink{fill:var(--ink)}.a-soft{fill:var(--accent-soft)}.a-live{fill:var(--live)}.a-surf{fill:var(--surface)}
+.a-mute{fill:var(--line)}.a-line{fill:var(--line)}.a-glass{fill:var(--soft)}.a-bg{fill:var(--soft)}
+.a-ring{stroke:var(--mute);stroke-width:6}.a-hand{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.a-tick{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.a-arrow{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.a-tickw{fill:none;stroke:var(--on-accent);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.a-t{font:700 20px var(--display);fill:var(--ink)}.a-ts{font:600 15px var(--text);fill:var(--mute)}.a-tw{font:700 18px var(--display);fill:var(--on-accent)}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.city{position:relative;margin-bottom:16px;border-radius:var(--r);overflow:hidden;aspect-ratio:21/8}
+.city figcaption{position:absolute;left:16px;bottom:14px;background:var(--surface);color:var(--ink);font-size:14px;padding:6px 14px;border-radius:var(--rb)}
+@media(max-width:700px){.city{aspect-ratio:16/10}}
 .card{border-radius:var(--r);padding:34px;background:var(--soft)}
 .card.dark{background:var(--dark);color:var(--on-dark)}
 .card.dark p{opacity:.78}
@@ -196,7 +223,10 @@ main section,main .board{margin-bottom:84px}
 .card .txt{color:var(--mute);margin-bottom:22px}
 .card .links{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
 .card .links a{text-decoration:underline;text-underline-offset:4px}
-@media(max-width:700px){.contact{grid-template-columns:1fr}.card{padding:26px}}
+@media(max-width:700px){.contact{grid-template-columns:minmax(0,1fr)}.card{padding:26px}.card .big{font-size:clamp(19px,6vw,30px)}}
+/* номер не переносится по дефису; карточка не шире колонки даже при широком шрифте (Detailing №1, 17.11.2026) */
+.contact > *{min-width:0}
+.card .big{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* подвал */
 footer{padding:12px 0 40px;color:var(--mute);font-size:14px}
@@ -312,6 +342,7 @@ footer .legal a{display:inline-block;padding:12px 4px;margin:-12px -4px}
 
 /* цифры из карточки 2ГИС под заголовком */
 .facts{display:flex;gap:28px;flex-wrap:wrap;list-style:none;padding:0;margin:0 0 30px}
+@media(max-width:440px){.facts{gap:18px;flex-wrap:nowrap;margin-bottom:22px}.facts li{min-width:0}}
 .facts li{font-size:14px;color:var(--mute)}
 .facts b{display:block;font:var(--dw) 36px/1 var(--display);letter-spacing:var(--dtrack);color:var(--ink);margin-bottom:4px}
 .hero.v-full .facts li{color:inherit;opacity:.85}
@@ -351,7 +382,7 @@ h1{font-size:clamp(34px,4.9vw,58px);line-height:1.1;text-wrap:balance}
 </head>
 <body data-plans="cards" data-bstyle="rows">
 <a class="skip" href="#tablo">Перейти к записи</a>
-<div class="demo" role="note">Это пример сайта для «Царская мойка», а не официальный сайт заведения. Пользуйтесь тестовыми данными.</div>
+<div class="demo" role="note">Это пример, а не официальный сайт «Царская мойка»<span class="demo-x">. Пользуйтесь тестовыми данными</span>.</div>
 
 <header>
   <div class="wrap nav">
@@ -365,12 +396,12 @@ h1{font-size:clamp(34px,4.9vw,58px);line-height:1.1;text-wrap:balance}
 </header>
 
 <main class="wrap">
-  <div class="hero v-center"><div class="in"><svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 34l5-22 13 12L32 6l10 18 13-12 5 22z"/><rect x="4" y="35" width="56" height="4" rx="2"/><circle cx="9" cy="10" r="3"/><circle cx="32" cy="4" r="3"/><circle cx="55" cy="10" r="3"/></svg><h1>По-царски чистый автомобиль</h1><p class="lead">Автомойка на Юннатском переулке, 2а. Выберите свободный час: встретим, вымоем и вернём машину с блеском.</p><ul class="facts"><li><b>4,6</b>рейтинг в 2ГИС</li><li><b>147</b>отзывов</li><li><b>9–21</b>ежедневно</li></ul><div class="cta"><a class="btn" href="#tablo">Выбрать время</a><a class="btn soft" href="#ceny">Услуги</a></div></div><div class="pic"><img src="img/stele.jpg" width="1600" height="1000" alt="Памятник-стела и розовое здание на площади в Чите" fetchpriority="high"></div></div>
+  <div class="hero v-center"><div class="in"><svg class="crown" viewBox="0 0 64 40" aria-hidden="true"><path d="M4 34l5-22 13 12L32 6l10 18 13-12 5 22z"/><rect x="4" y="35" width="56" height="4" rx="2"/><circle cx="9" cy="10" r="3"/><circle cx="32" cy="4" r="3"/><circle cx="55" cy="10" r="3"/></svg><h1>Мойка без&nbsp;очереди</h1><p class="lead">Юннатский переулок, 2а, ежедневно с 9 до 21. Выберите свободный час: встретим вовремя и вернём машину с блеском.</p><ul class="facts"><li><b>4,6</b>рейтинг в 2ГИС</li><li><b>147</b>отзывов</li><li><b>9–21</b>ежедневно</li></ul><div class="cta"><a class="btn" href="#tablo">Выбрать время</a><a class="btn soft" href="#ceny">Услуги</a></div></div><div class="pic"><img src="img/foam.jpg" width="1600" height="1000" alt="Машина в густой пене на мойке" fetchpriority="high"></div></div>
   <div class="board" id="tablo" data-board role="region" aria-labelledby="h-tablo"><div class="board-top"><h2 id="h-tablo"><span class="live" aria-hidden="true"></span>Свободное время</h2><div class="tabs" id="days-tabs" aria-label="День"></div></div><div class="hours" id="rows" aria-live="polite"><span class="hour wait">Загружаем…</span></div><noscript><p class="note">Расписание видно с включённым JavaScript. Записаться можно по телефону +7 (914) 499-65-77.</p></noscript><p class="note" id="board-note">Нажмите на свободный час, и он закрепится за вашим автомобилем.</p></div>
   <section id="ceny" aria-labelledby="h-ceny"><div class="head"><h2 id="h-ceny">Услуги</h2><p>Цены нам пока не переданы: администратор назовёт стоимость при подтверждении.</p></div><div class="chips" id="chips" aria-label="Класс автомобиля"></div><div class="plans" id="plans"></div></section>
-  <section aria-labelledby="h-how"><div class="head"><h2 id="h-how">Как это устроено</h2></div><div class="steps"><div class="step"><i aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><h3>Выберите час</h3><p>Свободное время видно на табло.</p></div><div class="step"><i aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M3 16h18v2H3z"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg></i><h3>Класс авто</h3><p>Укажите, на чём приедете.</p></div><div class="step"><i aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><h3>Приезжайте</h3><p>Подтвердим по телефону и встретим.</p></div></div></section>
-  <section aria-label="Чита"><div class="strip"><figure><img src="img/lenin.jpg" width="1600" height="1000" alt="Ночная площадь с фонтаном в Чите" loading="lazy"></figure><figure><img src="img/batareya.jpg" width="1600" height="1000" alt="Вид на Читу с сопки" loading="lazy"></figure></div></section>
-  <section id="kontakty" aria-labelledby="h-kont"><div class="contact"><div class="card dark"><h2 id="h-kont">Ждём вас</h2><p><a id="c-addr" href="#" target="_blank" rel="noopener">Юннатский переулок, 2а, Чита (Царский мкр, 1 этаж)</a></p><a class="big" id="c-tel" href="#"></a><p id="c-hrs"></p><div class="links" id="c-links"></div></div><div class="card"><h2>Запись онлайн</h2><p class="txt">Выберите час на мойку или оставьте заявку на чистку ковров.</p><button class="btn" type="button" data-book>Записаться</button></div></div></section>
+  <section class="sg" aria-labelledby="h-chas"><div class="head"><h2 id="h-chas">Каждый — к своему часу</h2><p>Запись закрепляет за машиной время. Никто не ждёт у ворот, посты не простаивают утром и не захлёбываются вечером.</p></div><div class="sg-g one"><figure class="sg-c on"><svg viewBox="0 0 420 180" role="img" aria-label="Три машины, у каждой своё время"><rect class="a-soft" x="10" y="16" width="128" height="40" rx="20"/><text class="a-t" x="74" y="43" text-anchor="middle">10:00</text><g transform="translate(26 92) scale(1)"><rect class="a-acc" x="0" y="16" width="96" height="22" rx="10"/><path class="a-acc" d="M18 18 30 3h36l14 15z"/><path class="a-glass" d="M32 15 39 7h12v8zM56 7h8l8 8H56z"/><circle class="a-ink" cx="24" cy="40" r="10"/><circle class="a-surf" cx="24" cy="40" r="4"/><circle class="a-ink" cx="72" cy="40" r="10"/><circle class="a-surf" cx="72" cy="40" r="4"/></g><rect class="a-soft" x="146" y="16" width="128" height="40" rx="20"/><text class="a-t" x="210" y="43" text-anchor="middle">11:00</text><g transform="translate(162 92) scale(1)"><rect class="a-acc" x="0" y="16" width="96" height="22" rx="10"/><path class="a-acc" d="M18 18 30 3h36l14 15z"/><path class="a-glass" d="M32 15 39 7h12v8zM56 7h8l8 8H56z"/><circle class="a-ink" cx="24" cy="40" r="10"/><circle class="a-surf" cx="24" cy="40" r="4"/><circle class="a-ink" cx="72" cy="40" r="10"/><circle class="a-surf" cx="72" cy="40" r="4"/></g><rect class="a-soft" x="282" y="16" width="128" height="40" rx="20"/><text class="a-t" x="346" y="43" text-anchor="middle">12:00</text><g transform="translate(298 92) scale(1)"><rect class="a-acc" x="0" y="16" width="96" height="22" rx="10"/><path class="a-acc" d="M18 18 30 3h36l14 15z"/><path class="a-glass" d="M32 15 39 7h12v8zM56 7h8l8 8H56z"/><circle class="a-ink" cx="24" cy="40" r="10"/><circle class="a-surf" cx="24" cy="40" r="4"/><circle class="a-ink" cx="72" cy="40" r="10"/><circle class="a-surf" cx="72" cy="40" r="4"/></g><rect class="a-line" x="0" y="146" width="420" height="9" rx="4.5"/><path class="a-live" d="M168 64l6-12 8 8 8-14 8 14 8-8 6 12z"/></svg><figcaption><b>Встретим вовремя</b>Выберите свободный час на табло, перезвоним и подтвердим. Ежедневно с 9 до 21.</figcaption></figure></div><p class="sg-cta"><a class="btn" href="#tablo">Выбрать время</a></p></section>
+  <section aria-label="Чита"><div class="strip"><figure><img src="img/interior2.jpg" width="1600" height="1000" alt="Чистка кожаного сиденья щёткой" loading="lazy"></figure><figure><img src="img/glossy.jpg" width="1600" height="1000" alt="Чистый блестящий чёрный кузов крупным планом" loading="lazy"></figure></div></section>
+  <section id="kontakty" aria-labelledby="h-kont"><figure class="city"><img src="img/lenin.jpg" width="1600" height="1000" alt="Площадь в центре Читы" loading="lazy"><figcaption>Работаем в Чите</figcaption></figure><div class="contact"><div class="card dark"><h2 id="h-kont">Ждём вас</h2><p><a id="c-addr" href="#" target="_blank" rel="noopener">Юннатский переулок, 2а, Чита (Царский мкр, 1 этаж)</a></p><a class="big" id="c-tel" href="#"></a><p id="c-hrs"></p><div class="links" id="c-links"></div></div><div class="card"><h2>Запись онлайн</h2><p class="txt">Выберите час на мойку или оставьте заявку на чистку ковров.</p><button class="btn" type="button" data-book>Записаться</button></div></div></section>
 </main>
 
 <footer>
@@ -384,7 +415,7 @@ h1{font-size:clamp(34px,4.9vw,58px);line-height:1.1;text-wrap:balance}
     </div>
     <div class="legal">
       <p>© <span id="fbrand">Царская мойка</span>, 2026. Тестовая версия: пример сайта, не официальный сайт заведения. Рейтинг и отзывы — по данным карточки 2ГИС на 17.11.2026.</p>
-      <p>Фото: Vyacheslav Bukharov, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Artem Svetlov from Moscow, Russia, <a href="https://creativecommons.org/licenses/by/2.0" target="_blank" rel="noopener">CC BY 2.0</a>; LxAndrew, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Wikimedia Commons (Чита).</p>
+      <p>Фото: RG72 (кадрировано), <a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="noopener">CC BY 4.0</a>; Info2408, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Dietmar Rabich, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Vyacheslav Bukharov, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>; Wikimedia Commons.</p>
     </div>
   </div>
 </footer>
